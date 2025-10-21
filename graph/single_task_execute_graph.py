@@ -3,13 +3,12 @@ from langgraph.graph import START, END, StateGraph
 
 
 
-def create_main_graph():
+def create_single_task_execute_graph(state):
     
-    main_graph = StateGraph()
+    single_task_execute_graph = StateGraph()
     
+    single_task_execute_workflow = single_task_execute_graph.compile()
     
+    result = single_task_execute_workflow.invoke(state)
     
-    
-    
-    
-    return 0
+    return result 
