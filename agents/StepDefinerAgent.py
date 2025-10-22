@@ -1,6 +1,6 @@
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
-from agent import load_yaml_system_prompt
+from agents.load_prompt import load_yaml_system_prompt
 from pathlib import Path
 from dotenv import load_dotenv
 import os

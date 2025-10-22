@@ -1,14 +1,20 @@
 from langgraph.graph import START, END, StateGraph
 
+from agents import ExtractorAgent
 
 
 
 def create_single_task_execute_graph(state):
     
     single_task_execute_graph = StateGraph()
+
+    single_task_execute_graph.add_node("retrieve", )
+    single_task_execute_graph.add_node("extract", ExtractorAgent),
+    single_task_execute_graph.add_node("generate", )
+    single_task_execute_graph.add_node("END", END)
     
-    single_task_execute_workflow = single_task_execute_graph.compile()
+    single_task_execute_graph.add_edge("retrieve", "extract")
+    single_task_execute_graph.add_edge("extract", "generate")
+    single_task_execute_graph.add_edge("generate", "END")
     
-    result = single_task_execute_workflow.invoke(state)
-    
-    return result 
+    return single_task_execute_graph.compile()
