@@ -2,6 +2,8 @@ from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
 from dotenv import load_dotenv
 from pathlib import Path
+from langchain_core.prompts import PromptTemplate
+
 import os
 
 load_dotenv()
@@ -21,6 +23,14 @@ def PlannerAgent(state):
     with open(str(AGENT_PROMPT), "r") as f:
         sys_prompt=f.read()
     
+    # PromptTemplate 객체를 활용하여 prompt_template 생성
+    prompt = PromptTemplate(
+        template=sys_prompt,
+        input_variables=["Question"],
+    )
+
+
+
     model = ChatOpenAI(
         name="Name",
         base_url=OPENAI_URL,
@@ -29,7 +39,7 @@ def PlannerAgent(state):
     response = model.invoke(
         input=[
             SystemMessage(),
-            HumanMessage(sys_prompt.format("Question"))
+            HumanMessage(prompt.format( Question="Question" ))
         ]
     )
 

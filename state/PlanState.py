@@ -1,4 +1,5 @@
-from typing import TypedDict
+from typing import TypedDict, List
+
 
 class PlanState(TypedDict): 
     analysis: str

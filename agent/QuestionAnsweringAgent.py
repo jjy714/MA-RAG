@@ -1,7 +1,9 @@
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
-from dotenv import load_dotenv
+from langchain_core.prompts import ChatPromptTemplate
 from pathlib import Path
+from dotenv import load_dotenv
+from agent import load_yaml_system_prompt
 import os
 
 load_dotenv()
@@ -9,7 +11,8 @@ load_dotenv()
 
 OPENAI_URL=os.getenv("OPENAI_URL")
 OPENAI_API_KEY=os.getenv("OPENAI_API_KEY")
-AGENT_PROMPT=Path("Prompts/PlannerAgent.txt")
+AGENT_PROMPT="Prompts/QuestionAnsweringAgent.yaml"
+
 
 def QuestionAnsweringAgent(state):
     
@@ -18,9 +21,9 @@ def QuestionAnsweringAgent(state):
     
     _state = state.get("original_question", "")
     
-    with open(str(AGENT_PROMPT), "r") as f:
-        sys_prompt=f.read()
-    
+    prompt = load_yaml_system_prompt(AGENT_PROMPT)
+    chat_template=ChatPromptTemplate(prompt['messages'])
+
     model = ChatOpenAI(
         name="Name",
         base_url=OPENAI_URL,
@@ -28,8 +31,8 @@ def QuestionAnsweringAgent(state):
     )
     response = model.invoke(
         input=[
-            SystemMessage(),
-            HumanMessage(sys_prompt.format("Question"))
+            SystemMessage(system_prompt),
+            HumanMessage(user_prompt.format())
         ]
     )
 

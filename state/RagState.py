@@ -1,4 +1,5 @@
-from typing import TypedDict
+from typing import TypedDict, List
+from state import QAAnswerState
 
 class RagState(TypedDict): 
     question: str 
@@ -6,4 +7,3 @@ class RagState(TypedDict):
     doc_ids: List[str] 
     notes: List[str] 
     final_raw_answer: QAAnswerState
-    

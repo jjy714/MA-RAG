@@ -1,0 +1,16 @@
+_type: chat_prompt
+input_variables: [plan, cur_step, memory]
+messages:
+  # System Message: Defines the agent's role, constraints, and output format.
+  - role: system
+    content: |
+      Given a plan, the current step, and the results from finished steps, decide the task for this step.
+      Output the type of task and the query. The query must be detailed and include all necessary information 
+      from previous step’s results in the query, especially for aggregate tasks. Be concise.
+
+  # User Message: Provides the dynamic runtime context using placeholders.
+  - role: user
+    content: |
+      Plan: {plan}
+      Current step: {cur_step}
+      Results of finished steps: {memory}
