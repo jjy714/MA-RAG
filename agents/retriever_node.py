@@ -12,6 +12,5 @@ def vector_search(query: str):
     return results
 
 
-
 def retriever_node():
-    pass 
+    pass
